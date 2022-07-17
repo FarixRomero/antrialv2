@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Livewire\Home;
+use App\Http\Livewire\Productos;
+use App\Http\Livewire\Products\ShowProducts;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,4 +28,14 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+Route::get('/productos',Productos::class )->name('productos.view');
+Route::get('/home',Home::class );
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/admin/productos', ShowProducts::class);
 });

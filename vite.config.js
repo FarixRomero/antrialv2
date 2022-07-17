@@ -10,8 +10,19 @@ export default defineConfig({
             ],
             refresh: [
                 ...refreshPaths,
-                'app/Http/Livewire/**',
+                'app/Http/Livewire/**'
             ],
         }),
+        {
+           name: 'blade',
+           handleHotUpdate({ file, server }) {
+               if (file.endsWith('.blade.php')) {
+                   server.ws.send({
+                       type: 'full-reload',
+                       path: '*',
+                   });
+               }
+           },
+       }
     ],
 });
